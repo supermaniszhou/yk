@@ -65,7 +65,7 @@ public class CollaborationEvent {
     }
 
     public List<Map<String, Object>> getState_3Data(Long objectId, Long preApprove) {
-        String sql = "select id,member_id,process_id from CTP_AFFAIR where object_id= " + objectId + " and PRE_APPROVER =" + preApprove;
+        String sql = "select id,member_id,process_id,activity_id from CTP_AFFAIR where object_id= " + objectId + " and PRE_APPROVER =" + preApprove;
         List<Map<String, Object>> list = JDBCUtil.doQuery(sql);
         return list;
     }
