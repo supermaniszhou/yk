@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a1f15c47-f11f-4d54-8d96-a3c50ca073cf" name="Default Changelist" comment="推送" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="F:\a8_code\A-8-code\医科大学_功能点\kypending\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hdDSs8vEytfCob2owO2uqcz3FD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../yk/OA代办事项推送到金智系统" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/MeetingEvent.java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\javaTool\code\OA代办事项推送到金智系统\src\config" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Remote.Unnamed">
+    <configuration name="KyPendingManager" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.seeyon.apps.ext.kypending.manager.KyPendingManager" />
+      <module name="kypending" />
+      <shortenClasspath name="CLASSPATH_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.seeyon.apps.ext.kypending.manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="Remote" nameIsGenerated="true">
+      <module name="kypending" />
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" />
+      <option name="HOST" value="222.193.95.134" />
+      <option name="PORT" value="8001" />
+      <option name="AUTO_RESTART" value="false" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="8001" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.KyPendingManager" />
+      <item itemvalue="Remote.Unnamed" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a1f15c47-f11f-4d54-8d96-a3c50ca073cf" name="Default Changelist" comment="" />
+      <created>1600332078211</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600332078211</updated>
+      <workItem from="1600332080607" duration="4449000" />
+      <workItem from="1600347528547" duration="997000" />
+      <workItem from="1600387211324" duration="9130000" />
+      <workItem from="1600406964485" duration="12748000" />
+      <workItem from="1600494957761" duration="1144000" />
+      <workItem from="1600651180119" duration="631000" />
+      <workItem from="1600651984502" duration="18675000" />
+      <workItem from="1600734789961" duration="15138000" />
+      <workItem from="1600752771469" duration="3868000" />
+      <workItem from="1600756883884" duration="11871000" />
+      <workItem from="1600820458086" duration="11401000" />
+      <workItem from="1600840689184" duration="5858000" />
+      <workItem from="1600847172076" duration="6912000" />
+      <workItem from="1600867322656" duration="5260000" />
+      <workItem from="1600913851879" duration="10740000" />
+      <workItem from="1601000851927" duration="623000" />
+      <workItem from="1601001569529" duration="845000" />
+      <workItem from="1602226300500" duration="197000" />
+      <workItem from="1604019517577" duration="2766000" />
+      <workItem from="1604022749056" duration="98000" />
+      <workItem from="1605844614894" duration="697000" />
+      <workItem from="1606376447505" duration="2141000" />
+      <workItem from="1606708713927" duration="39330000" />
+      <workItem from="1606959705306" duration="1304000" />
+      <workItem from="1606988575059" duration="245000" />
+      <workItem from="1607500333292" duration="39000" />
+      <workItem from="1608198575180" duration="11021000" />
+      <workItem from="1609382101605" duration="26249000" />
+      <workItem from="1610604980952" duration="1103000" />
+    </task>
+    <task id="LOCAL-00001" summary="推送">
+      <created>1600407188827</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600407188827</updated>
+    </task>
+    <task id="LOCAL-00002" summary="推送">
+      <created>1600415617273</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1600415617273</updated>
+    </task>
+    <task id="LOCAL-00003" summary="推送">
+      <created>1600417701990</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600417701990</updated>
+    </task>
+    <task id="LOCAL-00004" summary="推送">
+      <created>1600420882294</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1600420882294</updated>
+    </task>
+    <task id="LOCAL-00005" summary="推送">
+      <created>1600421028918</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1600421028918</updated>
+    </task>
+    <task id="LOCAL-00006" summary="推送">
+      <created>1600421066644</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1600421066644</updated>
+    </task>
+    <task id="LOCAL-00007" summary="推送">
+      <created>1600495000736</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1600495000736</updated>
+    </task>
+    <task id="LOCAL-00008" summary="推送">
+      <created>1600735133537</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1600735133537</updated>
+    </task>
+    <task id="LOCAL-00009" summary="推送">
+      <created>1600735951504</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1600735951504</updated>
+    </task>
+    <task id="LOCAL-00010" summary="推送">
+      <created>1600736747635</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1600736747635</updated>
+    </task>
+    <task id="LOCAL-00011" summary="推送">
+      <created>1600743637157</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1600743637157</updated>
+    </task>
+    <task id="LOCAL-00012" summary="推送">
+      <created>1600743663002</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1600743663002</updated>
+    </task>
+    <task id="LOCAL-00013" summary="推送">
+      <created>1600756997301</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1600756997302</updated>
+    </task>
+    <task id="LOCAL-00014" summary="推送">
+      <created>1600757420793</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1600757420793</updated>
+    </task>
+    <task id="LOCAL-00015" summary="推送">
+      <created>1600760050355</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1600760050355</updated>
+    </task>
+    <task id="LOCAL-00016" summary="推送">
+      <created>1600764721377</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1600764721377</updated>
+    </task>
+    <task id="LOCAL-00017" summary="推送">
+      <created>1600768245851</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1600768245851</updated>
+    </task>
+    <task id="LOCAL-00018" summary="推送">
+      <created>1600768558544</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1600768558544</updated>
+    </task>
+    <task id="LOCAL-00019" summary="推送">
+      <created>1600821080042</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1600821080042</updated>
+    </task>
+    <task id="LOCAL-00020" summary="推送">
+      <created>1600826420518</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1600826420518</updated>
+    </task>
+    <task id="LOCAL-00021" summary="推送">
+      <created>1600827380209</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1600827380209</updated>
+    </task>
+    <task id="LOCAL-00022" summary="推送">
+      <created>1600827429005</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1600827429005</updated>
+    </task>
+    <task id="LOCAL-00023" summary="推送">
+      <created>1600828159629</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1600828159629</updated>
+    </task>
+    <task id="LOCAL-00024" summary="推送">
+      <created>1600828824083</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1600828824083</updated>
+    </task>
+    <task id="LOCAL-00025" summary="推送">
+      <created>1600828932474</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1600828932474</updated>
+    </task>
+    <task id="LOCAL-00026" summary="推送">
+      <created>1600829716207</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1600829716207</updated>
+    </task>
+    <task id="LOCAL-00027" summary="推送">
+      <created>1600829960529</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1600829960529</updated>
+    </task>
+    <task id="LOCAL-00028" summary="推送">
+      <created>1600831504144</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1600831504144</updated>
+    </task>
+    <task id="LOCAL-00029" summary="推送">
+      <created>1600832175705</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1600832175705</updated>
+    </task>
+    <task id="LOCAL-00030" summary="推送">
+      <created>1600847260090</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1600847260090</updated>
+    </task>
+    <task id="LOCAL-00031" summary="推送">
+      <created>1600847435039</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1600847435039</updated>
+    </task>
+    <task id="LOCAL-00032" summary="推送">
+      <created>1600847999803</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1600847999803</updated>
+    </task>
+    <task id="LOCAL-00033" summary="推送">
+      <created>1600850348731</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1600850348731</updated>
+    </task>
+    <task id="LOCAL-00034" summary="推送">
+      <created>1600872663156</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1600872663156</updated>
+    </task>
+    <task id="LOCAL-00035" summary="推送">
+      <created>1600917458538</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1600917458538</updated>
+    </task>
+    <task id="LOCAL-00036" summary="推送">
+      <created>1600918266084</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1600918266084</updated>
+    </task>
+    <task id="LOCAL-00037" summary="推送">
+      <created>1600925639169</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1600925639169</updated>
+    </task>
+    <task id="LOCAL-00038" summary="推送">
+      <created>1600928104236</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1600928104236</updated>
+    </task>
+    <task id="LOCAL-00039" summary="推送">
+      <created>1600930375240</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1600930375240</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="推送" />
+    <option name="LAST_COMMIT_MESSAGE" value="推送" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/MeetingEvent.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/v3x/edoc/manager/EdocManagerImpl.java</url>
+          <line>12107</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/v3x/edoc/controller/EdocController.java</url>
+          <line>2675</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/v3x/edoc/manager/EdocManagerImpl.java</url>
+          <line>12027</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/govdoc/controller/GovdocController.java</url>
+          <line>1065</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://F:/Seeyon/A871sp1_qiye/ApacheJetspeed/webapps/seeyon/WEB-INF/lib/seeyon-apps-edoc.jar!/com/seeyon/apps/govdoc/manager/impl/GovdocManagerImpl.class</url>
+          <line>2088</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://F:/Seeyon/A871sp1_qiye/ApacheJetspeed/webapps/seeyon/WEB-INF/lib/seeyon-apps-edoc.jar!/com/seeyon/apps/govdoc/manager/impl/GovdocManagerImpl.class</url>
+          <line>2096</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/GovdocCancelListener.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/govdoc/listener/GovdocWorkflowEventListener.java</url>
+          <line>900</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/govdoc/listener/GovdocWorkflowEventListener.java</url>
+          <line>147</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/govdoc/listener/GovdocWorkflowEventListener.java</url>
+          <line>1006</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/MeetingEvent.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/MeetingEvent.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/CollaborationEvent.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/CollaborationEvent.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/GovdocOperatListener.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/GovdocOperatListener.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/GovdocOperatListener.java</url>
+          <line>206</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/CollaborationEvent.java</url>
+          <line>186</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/manager/KyPendingManager.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/CollaborationEvent.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/manager/KyPendingManager.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/seeyon/apps/ext/kypending/listener/CollaborationEvent.java</url>
+          <line>358</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
