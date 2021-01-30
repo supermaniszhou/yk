@@ -7,6 +7,7 @@ import com.seeyon.apps.ext.kypending.manager.TempPendingDataManagerImpl;
 import com.seeyon.apps.ext.kypending.po.TempPendingData;
 import com.seeyon.apps.ext.kypending.util.JDBCUtil;
 import com.seeyon.apps.ext.kypending.util.ReadConfigTools;
+import com.seeyon.apps.ext.kypending.util.XmlUtil;
 import com.seeyon.apps.govdoc.manager.GovdocSummaryManager;
 import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.common.exceptions.BusinessException;
@@ -65,7 +66,10 @@ public class GovdocOperatListener {
                 if (list.size() > 0) {
                     Map<String, Object> map = null;
                     //todo 在这里将处理的数据状态改为已完成，使数据在金智已办栏目中显示
-                    updateCompleteStatus(currentAffair);
+                    //在这里判断一下是不是首次发起
+                    if (null != currentAffair.getActivityId()) {
+                        updateCompleteStatus(currentAffair);
+                    }
 
                     /**在这里做一次保存操作，因为在终止时拿不到ctpaffair，所以在这里记录一下*/
                     TempPendingData tempPendingData = new TempPendingData();
@@ -205,15 +209,54 @@ public class GovdocOperatListener {
 
     public void updateCompleteStatus(CtpAffair ctpAffair) {
         if (null != ctpAffair) {
-            List<Map<String, Object>> state3DataList = getState_3Data(ctpAffair.getObjectId(), ctpAffair.getPreApprover());
-            for (int i = 0; i < state3DataList.size(); i++) {
-                Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) state3DataList.get(i).get("member_id")).longValue());
+            //获取流程节点的执行模式
+            String processSql = "select process_xml from WF_PROCESS_RUNNING where id =" + ctpAffair.getProcessId();
+            List<Map<String, Object>> xmlList = JDBCUtil.doQuery(processSql);
+            Map<String, Object> xmlMap = xmlList.get(0);
+            String xml = (String) xmlMap.get("process_xml");
+            Map<String, String> nodeTypeMap = XmlUtil.getNodeTypeMap(xml);
+            String activityId = ctpAffair.getActivityId().longValue() + "";
+            String nodeType = nodeTypeMap.get(activityId);
+            // 竞争：competition  ， 全体：all  ，多人：multiple  ，单人：single
+            //同一节点多个人
+            String commonNodeSql = "select id,member_id,process_id,activity_id from CTP_AFFAIR where object_id= " + ctpAffair.getObjectId() + " and activity_id= " + ctpAffair.getActivityId();
+            List<Map<String, Object>> mapList = new ArrayList<>();
+            Map<String, Object> map2 = null;
+            if (nodeType.equals("competition")) {
+                List<Map<String, Object>> cNodeList = JDBCUtil.doQuery(commonNodeSql);
+                for (int i = 0; i < cNodeList.size(); i++) {
+                    Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) cNodeList.get(i).get("member_id")).longValue());
+                    //todo 在这里将处理的数据状态改为已完成，使数据在金智已办栏目中显示
+                    map2 = new HashMap<>();
+                    map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
+                    map2.put("task_id", ((BigDecimal) cNodeList.get(i).get("id")).longValue() + "");
+                    map2.put("actual_owner_id", currentUserMap.get("login_name"));
+                    map2.put("actual_owner_name", currentUserMap.get("membername"));
+                    map2.put("actual_owner_dept", currentUserMap.get("unitname"));
+                    map2.put("status", "COMPLETE");
+                    map2.put("end_on", simpleDateFormat.format(new Date()));
+                    map2.put("process_instance_id", ctpAffair.getProcessId());
+                    map2.put("process_instance_status", "COMPLETE");
+                    map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
+                    String formUrl = "";
+                    String oaUrl = ReadConfigTools.getInstance().getString("oaurl");
+                    if (ctpAffair.getApp().intValue() == 1) {
+                        formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + ctpAffair.getId().longValue() + "&app=1&objectId=" + ctpAffair.getObjectId() + "";
+                    } else if (ctpAffair.getApp().intValue() == 4) {
+                        formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + ctpAffair.getId().longValue() + "&app=4&objectId=" + ctpAffair.getObjectId() + "";
+                    } else if (ctpAffair.getApp().intValue() == 6) {
+                        formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + ctpAffair.getId().longValue() + "&app=6&objectId=" + ctpAffair.getObjectId() + "";
+                    }
+                    map2.put("form_url", formUrl);
+                    map2.put("form_url_view", formUrl);
+                    mapList.add(map2);
+                }
+            } else {
+                Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(ctpAffair.getMemberId());
 
-                List<Map<String, Object>> mapList = new ArrayList<>();
-                //todo 在这里将处理的数据状态改为已完成，使数据在金智已办栏目中显示
-                Map<String, Object> map2 = new HashMap<>();
+                map2 = new HashMap<>();
                 map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
-                map2.put("task_id", ((BigDecimal) state3DataList.get(i).get("id")).longValue() + "");
+                map2.put("task_id", ctpAffair.getId().longValue() + "");
                 map2.put("actual_owner_id", currentUserMap.get("login_name"));
                 map2.put("actual_owner_name", currentUserMap.get("membername"));
                 map2.put("actual_owner_dept", currentUserMap.get("unitname"));
@@ -235,8 +278,8 @@ public class GovdocOperatListener {
                 map2.put("form_url_view", formUrl);
                 mapList.add(map2);
 
-                KyPendingManager.getInstance().updateCtpAffair("updatetasks", get_todoPath, get_appId, get_accessToken, mapList);
             }
+            KyPendingManager.getInstance().updateCtpAffair("updatetasks", get_todoPath, get_appId, get_accessToken, mapList);
 
         }
     }
