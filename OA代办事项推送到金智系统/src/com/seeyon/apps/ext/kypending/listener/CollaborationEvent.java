@@ -55,6 +55,12 @@ public class CollaborationEvent {
 
     }
 
+    @ListenEvent(event = CollaborationProcessEvent.class, async = true)
+    public void process(CollaborationProcessEvent event) {
+        CtpAffair ctpAffair = event.getAffair();
+        updateCompleteStatus(ctpAffair);
+    }
+
     @ListenEvent(event = CollaborationFinishEvent.class, async = true)
     public void finish(CollaborationFinishEvent event) {
         CtpAffair ctpAffair = event.getAffair();
