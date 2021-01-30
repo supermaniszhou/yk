@@ -8,10 +8,7 @@ import com.seeyon.apps.ext.kypending.manager.KyPendingManager;
 import com.seeyon.apps.ext.kypending.manager.TempPendingDataManager;
 import com.seeyon.apps.ext.kypending.manager.TempPendingDataManagerImpl;
 import com.seeyon.apps.ext.kypending.po.TempPendingData;
-import com.seeyon.apps.ext.kypending.util.JDBCUtil;
-import com.seeyon.apps.ext.kypending.util.ReadConfigTools;
-import com.seeyon.apps.ext.kypending.util.RestfulInfo;
-import com.seeyon.apps.ext.kypending.util.RestfulUtil;
+import com.seeyon.apps.ext.kypending.util.*;
 import com.seeyon.ctp.common.AppContext;
 import com.seeyon.ctp.common.exceptions.BusinessException;
 import com.seeyon.ctp.common.po.affair.CtpAffair;
@@ -87,50 +84,40 @@ public class CollaborationEvent {
         String appId = ReadConfigTools.getInstance().getString("appId");
         String accessToken = ReadConfigTools.getInstance().getString("accessToken");
         //zhou:定义一个变量用来标识是竞争执行还是并行执行或者单人执行，竞争中值为true,其他为false;
+        //同一节点多个人
+        String commonNodeSql = "select id,member_id,process_id,activity_id from CTP_AFFAIR where object_id= " + currentAffair.getObjectId() + " and activity_id= " + currentAffair.getActivityId();
         boolean isJz = false;
         if (list.size() > 0) {
-            List<Map<String, Object>> state3DataList = getState_3Data(currentAffair.getObjectId(), currentAffair.getPreApprover());
-            if (state3DataList.size() >= 2) {
-                for (int i = 0; i < state3DataList.size(); i++) {
-                    Map<String, Object> map_1 = state3DataList.get(i);
-                    Map<String, Object> map_2 = null;
-                    int k = i + 1;
-                    if (k == (state3DataList.size())) {
-                        map_2 = state3DataList.get(i);
-                    } else {
-                        map_2 = state3DataList.get(k);
-                    }
-                    String activityId_1 = map_1.get("activity_id") + "";
-                    String activityId_2 = map_2.get("activity_id") + "";
-                    if (activityId_1.equals(activityId_2)) {
-                        isJz = true;
-                    }
-                }
-            }
+            //todo
+            String processSql = "select process_xml from WF_PROCESS_RUNNING where id =" + currentAffair.getProcessId();
+            List<Map<String, Object>> xmlList = JDBCUtil.doQuery(processSql);
+            Map<String, Object> xmlMap = xmlList.get(0);
+            String xml = (String) xmlMap.get("process_xml");
+            Map<String, String> nodeTypeMap = XmlUtil.getNodeTypeMap(xml);
+            String activityId = currentAffair.getActivityId().longValue() + "";
+            String nodeType = nodeTypeMap.get(activityId);
 
-            Map<String, Object> map = null;
             List<Map<String, Object>> mapList = new ArrayList<>();
             Map<String, Object> map2 = null;
-            if (isJz) {//为true,说明是竞争执行
-                for (int i = 0; i < state3DataList.size(); i++) {
+            // 竞争：competition  ， 全体：all  ，多人：multiple  ，单人：single
+            if (nodeType.equals("competition")) {
+                List<Map<String, Object>> cNodeList = JDBCUtil.doQuery(commonNodeSql);
+                for (int i = 0; i < cNodeList.size(); i++) {
                     map2 = new HashMap<>();
-
-                    Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) state3DataList.get(i).get("member_id")).longValue());
+                    Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) cNodeList.get(i).get("member_id")).longValue());
                     map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
-                    map2.put("task_id", ((BigDecimal) state3DataList.get(i).get("id")).longValue() + "");
-
+                    map2.put("task_id", ((BigDecimal) cNodeList.get(i).get("id")).longValue() + "");
                     map2.put("actual_owner_id", currentUserMap.get("login_name"));
                     map2.put("actual_owner_name", currentUserMap.get("membername"));
                     map2.put("actual_owner_dept", currentUserMap.get("unitname"));
                     map2.put("status", "COMPLETE");
                     map2.put("end_on", simpleDateFormat.format(new Date()));
-                    map2.put("process_instance_id", state3DataList.get(i).get("process_id"));
+                    map2.put("process_instance_id", cNodeList.get(i).get("process_id"));
                     map2.put("process_instance_status", "RUNNING");
                     map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
                     mapList.add(map2);
                 }
-
-            } else {//为false,说明是其他执行方式
+            } else {
                 map2 = new HashMap<>();
                 Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(currentAffair.getMemberId().longValue());
                 map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
@@ -145,8 +132,11 @@ public class CollaborationEvent {
                 map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
                 mapList.add(map2);
             }
-            //调用金智修改流程的操作执行修改
             KyPendingManager.getInstance().updateCtpAffair("updatetasks", todopath, appId, accessToken, mapList);
+
+            Map<String, Object> map = null;
+
+            //调用金智修改流程的操作执行修改
 
             //在此记录一下当前处理人，后面撤销时方便查询需要撤销的ctpaffair
             Map<String, Object> paramMap2 = new HashMap<>();
