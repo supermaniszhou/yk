@@ -94,47 +94,50 @@ public class CollaborationEvent {
             Map<String, Object> xmlMap = xmlList.get(0);
             String xml = (String) xmlMap.get("process_xml");
             Map<String, String> nodeTypeMap = XmlUtil.getNodeTypeMap(xml);
-            String activityId = currentAffair.getActivityId().longValue() + "";
-            String nodeType = nodeTypeMap.get(activityId);
+            //在这里判断一下是不是首次发起
+            if (null != currentAffair.getActivityId()) {
+                String activityId = currentAffair.getActivityId().longValue() + "";
+                String nodeType = nodeTypeMap.get(activityId);
 
-            List<Map<String, Object>> mapList = new ArrayList<>();
-            Map<String, Object> map2 = null;
-            // 竞争：competition  ， 全体：all  ，多人：multiple  ，单人：single
-            if (nodeType.equals("competition")) {
-                List<Map<String, Object>> cNodeList = JDBCUtil.doQuery(commonNodeSql);
-                for (int i = 0; i < cNodeList.size(); i++) {
-                    Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) cNodeList.get(i).get("member_id")).longValue());
-                    map2 = new_update_common(currentAffair, cNodeList.get(i), currentUserMap);
+                List<Map<String, Object>> mapList = new ArrayList<>();
+                Map<String, Object> map2 = null;
+                // 竞争：competition  ， 全体：all  ，多人：multiple  ，单人：single
+                if (nodeType.equals("competition")) {
+                    List<Map<String, Object>> cNodeList = JDBCUtil.doQuery(commonNodeSql);
+                    for (int i = 0; i < cNodeList.size(); i++) {
+                        Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) cNodeList.get(i).get("member_id")).longValue());
+                        map2 = new_update_common(currentAffair, cNodeList.get(i), currentUserMap);
 
+                        mapList.add(map2);
+                    }
+                } else {
+                    map2 = new HashMap<>();
+                    Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(currentAffair.getMemberId().longValue());
+                    map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
+                    map2.put("task_id", currentAffair.getId().longValue() + "");
+                    map2.put("actual_owner_id", currentUserMap.get("login_name"));
+                    map2.put("actual_owner_name", currentUserMap.get("membername"));
+                    map2.put("actual_owner_dept", currentUserMap.get("unitname"));
+                    map2.put("status", "COMPLETE");
+                    map2.put("end_on", simpleDateFormat.format(new Date()));
+                    map2.put("process_instance_id", currentAffair.getProcessId());
+                    map2.put("process_instance_status", "RUNNING");
+                    map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
+                    String formUrl = "";
+                    String oaUrl = ReadConfigTools.getInstance().getString("oaurl");
+                    if (currentAffair.getApp().intValue() == 1) {
+                        formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=1&objectId=" + currentAffair.getObjectId() + "";
+                    } else if (currentAffair.getApp().intValue() == 4) {
+                        formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=4&objectId=" + currentAffair.getObjectId() + "";
+                    } else if (currentAffair.getApp().intValue() == 6) {
+                        formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=6&objectId=" + currentAffair.getObjectId() + "";
+                    }
+                    map2.put("form_url", formUrl);
+                    map2.put("form_url_view", formUrl);
                     mapList.add(map2);
                 }
-            } else {
-                map2 = new HashMap<>();
-                Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(currentAffair.getMemberId().longValue());
-                map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
-                map2.put("task_id", currentAffair.getId().longValue() + "");
-                map2.put("actual_owner_id", currentUserMap.get("login_name"));
-                map2.put("actual_owner_name", currentUserMap.get("membername"));
-                map2.put("actual_owner_dept", currentUserMap.get("unitname"));
-                map2.put("status", "COMPLETE");
-                map2.put("end_on", simpleDateFormat.format(new Date()));
-                map2.put("process_instance_id", currentAffair.getProcessId());
-                map2.put("process_instance_status", "RUNNING");
-                map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
-                String formUrl = "";
-                String oaUrl = ReadConfigTools.getInstance().getString("oaurl");
-                if (currentAffair.getApp().intValue() == 1) {
-                    formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=1&objectId=" + currentAffair.getObjectId() + "";
-                } else if (currentAffair.getApp().intValue() == 4) {
-                    formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=4&objectId=" + currentAffair.getObjectId() + "";
-                } else if (currentAffair.getApp().intValue() == 6) {
-                    formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=6&objectId=" + currentAffair.getObjectId() + "";
-                }
-                map2.put("form_url", formUrl);
-                map2.put("form_url_view", formUrl);
-                mapList.add(map2);
+                KyPendingManager.getInstance().updateCtpAffair("updatetasks", todopath, appId, accessToken, mapList);
             }
-            KyPendingManager.getInstance().updateCtpAffair("updatetasks", todopath, appId, accessToken, mapList);
 
             Map<String, Object> map = null;
 
