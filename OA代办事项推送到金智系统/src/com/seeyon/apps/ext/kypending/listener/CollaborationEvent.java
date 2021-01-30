@@ -103,18 +103,9 @@ public class CollaborationEvent {
             if (nodeType.equals("competition")) {
                 List<Map<String, Object>> cNodeList = JDBCUtil.doQuery(commonNodeSql);
                 for (int i = 0; i < cNodeList.size(); i++) {
-                    map2 = new HashMap<>();
                     Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) cNodeList.get(i).get("member_id")).longValue());
-                    map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
-                    map2.put("task_id", ((BigDecimal) cNodeList.get(i).get("id")).longValue() + "");
-                    map2.put("actual_owner_id", currentUserMap.get("login_name"));
-                    map2.put("actual_owner_name", currentUserMap.get("membername"));
-                    map2.put("actual_owner_dept", currentUserMap.get("unitname"));
-                    map2.put("status", "COMPLETE");
-                    map2.put("end_on", simpleDateFormat.format(new Date()));
-                    map2.put("process_instance_id", cNodeList.get(i).get("process_id"));
-                    map2.put("process_instance_status", "RUNNING");
-                    map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
+                    map2 = new_update_common(currentAffair, cNodeList.get(i), currentUserMap);
+
                     mapList.add(map2);
                 }
             } else {
@@ -130,6 +121,17 @@ public class CollaborationEvent {
                 map2.put("process_instance_id", currentAffair.getProcessId());
                 map2.put("process_instance_status", "RUNNING");
                 map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
+                String formUrl = "";
+                String oaUrl = ReadConfigTools.getInstance().getString("oaurl");
+                if (currentAffair.getApp().intValue() == 1) {
+                    formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=1&objectId=" + currentAffair.getObjectId() + "";
+                } else if (currentAffair.getApp().intValue() == 4) {
+                    formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=4&objectId=" + currentAffair.getObjectId() + "";
+                } else if (currentAffair.getApp().intValue() == 6) {
+                    formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + currentAffair.getId().longValue() + "&app=6&objectId=" + currentAffair.getObjectId() + "";
+                }
+                map2.put("form_url", formUrl);
+                map2.put("form_url_view", formUrl);
                 mapList.add(map2);
             }
             KyPendingManager.getInstance().updateCtpAffair("updatetasks", todopath, appId, accessToken, mapList);
@@ -385,24 +387,40 @@ public class CollaborationEvent {
 
 
     public void updateCompleteStatus(CtpAffair ctpAffair2) {
-        List<Map<String, Object>> state3DataList = getState_3Data(ctpAffair2.getObjectId(), ctpAffair2.getPreApprover());
-        for (int i = 0; i < state3DataList.size(); i++) {
-            Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) state3DataList.get(i).get("member_id")).longValue());
-            List<Map<String, Object>> mapList = new ArrayList<>();
-            //todo 在这里将处理的数据状态改为已完成，使数据在金智已办栏目中显示
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Map<String, Object> map2 = new HashMap<>();
-            map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
-            map2.put("task_id", ((BigDecimal) state3DataList.get(i).get("id")).longValue() + "");
 
+        String processSql = "select process_xml from WF_PROCESS_RUNNING where id =" + ctpAffair2.getProcessId();
+        List<Map<String, Object>> xmlList = JDBCUtil.doQuery(processSql);
+        Map<String, Object> xmlMap = xmlList.get(0);
+        String xml = (String) xmlMap.get("process_xml");
+        Map<String, String> nodeTypeMap = XmlUtil.getNodeTypeMap(xml);
+        String activityId = ctpAffair2.getActivityId().longValue() + "";
+        String nodeType = nodeTypeMap.get(activityId);
+
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        Map<String, Object> map2 = null;
+        //同一节点多个人
+        String commonNodeSql = "select id,member_id,process_id,activity_id from CTP_AFFAIR where object_id= " + ctpAffair2.getObjectId() + " and activity_id= " + ctpAffair2.getActivityId();
+        // 竞争：competition  ， 全体：all  ，多人：multiple  ，单人：single
+        if (nodeType.equals("competition")) {
+            List<Map<String, Object>> cNodeList = JDBCUtil.doQuery(commonNodeSql);
+            for (int i = 0; i < cNodeList.size(); i++) {
+                Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(((BigDecimal) cNodeList.get(i).get("member_id")).longValue());
+                map2 = new_update_common(ctpAffair2, cNodeList.get(i), currentUserMap);
+                mapList.add(map2);
+            }
+        } else {
+            map2 = new HashMap<>();
+            Map<String, Object> currentUserMap = JDBCUtil.getMemberInfo(ctpAffair2.getMemberId().longValue());
+            map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
+            map2.put("task_id", ctpAffair2.getId().longValue() + "");
             map2.put("actual_owner_id", currentUserMap.get("login_name"));
             map2.put("actual_owner_name", currentUserMap.get("membername"));
             map2.put("actual_owner_dept", currentUserMap.get("unitname"));
             map2.put("status", "COMPLETE");
-            map2.put("end_on", sdf.format(new Date()));
-            map2.put("process_instance_id", state3DataList.get(i).get("process_id"));
-            map2.put("process_instance_status", "COMPLETE");
-            map2.put("process_instance_ent_date", sdf.format(new Date()));
+            map2.put("end_on", simpleDateFormat.format(new Date()));
+            map2.put("process_instance_id", ctpAffair2.getProcessId());
+            map2.put("process_instance_status", "RUNNING");
+            map2.put("process_instance_ent_date", simpleDateFormat.format(new Date()));
             String formUrl = "";
             String oaUrl = ReadConfigTools.getInstance().getString("oaurl");
             if (ctpAffair2.getApp().intValue() == 1) {
@@ -415,13 +433,42 @@ public class CollaborationEvent {
             map2.put("form_url", formUrl);
             map2.put("form_url_view", formUrl);
             mapList.add(map2);
-            String todopath = ReadConfigTools.getInstance().getString("todopath");
-            String appId = ReadConfigTools.getInstance().getString("appId");
-            String accessToken = ReadConfigTools.getInstance().getString("accessToken");
-            KyPendingManager.getInstance().updateCtpAffair("updatetasks", todopath, appId, accessToken, mapList);
-
         }
+        String todopath = ReadConfigTools.getInstance().getString("todopath");
+        String appId = ReadConfigTools.getInstance().getString("appId");
+        String accessToken = ReadConfigTools.getInstance().getString("accessToken");
+        KyPendingManager.getInstance().updateCtpAffair("updatetasks", todopath, appId, accessToken, mapList);
 
+    }
+
+    public Map<String, Object> new_update_common(CtpAffair ctpAffair, Map<String, Object> map, Map<String, Object> currentUserMap) {
+
+        //todo 在这里将处理的数据状态改为已完成，使数据在金智已办栏目中显示
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("app_id", ReadConfigTools.getInstance().getString("appId"));
+        map2.put("task_id", ((BigDecimal) map.get("id")).longValue() + "");
+
+        map2.put("actual_owner_id", currentUserMap.get("login_name"));
+        map2.put("actual_owner_name", currentUserMap.get("membername"));
+        map2.put("actual_owner_dept", currentUserMap.get("unitname"));
+        map2.put("status", "COMPLETE");
+        map2.put("end_on", sdf.format(new Date()));
+        map2.put("process_instance_id", map.get("process_id"));
+        map2.put("process_instance_status", "COMPLETE");
+        map2.put("process_instance_ent_date", sdf.format(new Date()));
+        String formUrl = "";
+        String oaUrl = ReadConfigTools.getInstance().getString("oaurl");
+        if (ctpAffair.getApp().intValue() == 1) {
+            formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + ctpAffair.getId().longValue() + "&app=1&objectId=" + ctpAffair.getObjectId() + "";
+        } else if (ctpAffair.getApp().intValue() == 4) {
+            formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + ctpAffair.getId().longValue() + "&app=4&objectId=" + ctpAffair.getObjectId() + "";
+        } else if (ctpAffair.getApp().intValue() == 6) {
+            formUrl = oaUrl + "/seeyon/openPending.jsp?ticket=" + currentUserMap.get("login_name") + "&affairId=" + ctpAffair.getId().longValue() + "&app=6&objectId=" + ctpAffair.getObjectId() + "";
+        }
+        map2.put("form_url", formUrl);
+        map2.put("form_url_view", formUrl);
+        return map2;
     }
 
 
